@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mat.make &mdash; rage 1.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="rage 1.0 documentation" href="../index.html"/>
+        <link rel="next" title="mat.ops" href="mat.ops.html"/>
+        <link rel="prev" title="mat.heatmap" href="mat.heatmap.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> rage</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div> 
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/index.html"><em>Installation</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html#bedtools">bedtools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html#ucsc-kent-source-utilities">UCSC kent source utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html#r-package-dependencies">R package dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/index.html#installing-the-rage-package-in-r">Installing the RAGE package in R</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="bed.avglengths.html"><em>bed.avglengths</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bed.avglengths.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.avglengths.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.avglengths.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.avglengths.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.avglengths.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bed.centers.html"><em>bed.centers</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bed.centers.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.centers.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.centers.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.centers.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.centers.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bed.coverage.html"><em>bed.coverage</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bed.coverage.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.coverage.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.coverage.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.coverage.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.coverage.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bed.genomecov.html"><em>bed.genomecov</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bed.genomecov.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.genomecov.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.genomecov.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.genomecov.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.genomecov.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bed.intersect.html"><em>bed.intersect</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bed.intersect.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.intersect.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.intersect.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.intersect.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.intersect.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bed.makewindows.html"><em>bed.makewindows</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bed.makewindows.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.makewindows.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.makewindows.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.makewindows.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.makewindows.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bed.parselengths.html"><em>bed.parselengths</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bed.parselengths.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.parselengths.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.parselengths.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.parselengths.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.parselengths.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bed.words.html"><em>bed.words</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bed.words.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.words.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.words.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.words.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bed.words.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bg.map.html"><em>bg.map</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bg.map.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bg.map.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bg.map.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bg.map.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bg.map.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gff.2.bg.html"><em>gff.2.bg</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gff.2.bg.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gff.2.bg.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gff.2.bg.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gff.2.bg.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gff.2.bg.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hub.wig.html"><em>hub.wig</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hub.wig.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hub.wig.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hub.wig.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hub.wig.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hub.wig.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mat.cor.html"><em>mat.cor</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mat.cor.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.cor.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.cor.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.cor.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.cor.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mat.heatmap.html"><em>mat.heatmap</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mat.heatmap.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.heatmap.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.heatmap.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.heatmap.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.heatmap.html#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href=""><em>mat.make</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#value">value</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mat.ops.html"><em>mat.ops</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mat.ops.html#description">description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.ops.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.ops.html#arguments">arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.ops.html#output">output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mat.ops.html#examples">examples</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/array.2.matrix.html"><em>make matrices from microarray gffs</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../workflows/array.2.matrix.html#workflow">workflow</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">rage</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li><em>mat.make</em></li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/functions/mat.make.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="mat-make">
+<h1><em>mat.make</em><a class="headerlink" href="#mat-make" title="Permalink to this headline">¶</a></h1>
+<p>align genomic data at specific regions</p>
+<div class="section" id="description">
+<h2>description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">mat.make</span></tt> creates a matrix of quantitative genomic data (&#8216;scorefiles&#8217;) aligned around a defined distance surrounding genomic intervals (&#8216;features&#8217;). An example would be a matrix of ChIP-seq read densities 2 kb surrounding TSSs, where each row corresponds to a single TSS, and each column correspond to a window relative to the TSS. This function provides a convenient way to store many different quantitative data focused on regions of interest, and the output matrices are used as inputs to other &#8216;mat.&#8217; functions in RAGE, such as mat.heatmap and mat.plotaverages. Importantly, matrices of all &#8216;scorefiles&#8217; created at a given &#8216;feature&#8217;, will have identical dimensions.</p>
+</div>
+<div class="section" id="usage">
+<h2>usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mat</span><span class="o">.</span><span class="n">make</span> <span class="p">(</span> <span class="n">scorefiles</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">regionsize</span><span class="o">=</span><span class="mi">2000</span> <span class="p">,</span> <span class="n">windowsize</span><span class="o">=</span><span class="mi">10</span> <span class="p">,</span>
+<span class="n">strand</span><span class="o">=</span><span class="n">FALSE</span> <span class="p">,</span> <span class="n">featurecenter</span><span class="o">=</span><span class="n">TRUE</span> <span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">2</span> <span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">3</span> <span class="p">,</span> <span class="n">prunefeaturesto</span><span class="o">=</span><span class="n">NULL</span> <span class="p">,</span> <span class="n">narrowpeak</span><span class="o">=</span><span class="n">FALSE</span> <span class="p">,</span>
+<span class="n">maskbed</span><span class="o">=</span><span class="n">NULL</span> <span class="p">,</span> <span class="n">bgfiller</span><span class="o">=</span><span class="mi">0</span> <span class="p">,</span> <span class="n">prunescores</span><span class="o">=</span><span class="n">FALSE</span> <span class="p">,</span> <span class="n">rpm</span><span class="o">=</span><span class="n">TRUE</span> <span class="p">,</span> <span class="n">scoremat</span><span class="o">=</span><span class="n">TRUE</span> <span class="p">,</span>
+<span class="n">closest</span><span class="o">=</span><span class="n">NULL</span> <span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="s">&quot;max&quot;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">metaflank</span><span class="o">=</span><span class="mi">1000</span> <span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">NULL</span> <span class="p">,</span> <span class="n">fragmats</span><span class="o">=</span><span class="mi">0</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="arguments">
+<h2>arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Main options</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>scorefiles</strong></td>
+<td>character vector of file names of data to be stored in a matrix. Can be supplied in bedGraph, wiggle, or bigWig format. If interval data is provided (bed, bigBed, sam, bam, narrowPeak, or broadPeak) as a scorefile, mat.make will calculate and store interval densities.</td>
+</tr>
+<tr class="row-odd"><td><strong>featurefiles</strong></td>
+<td>character vector of file names of genomic intervals to align data in &#8216;scorefiles&#8217; to. Can be one of the following formats: bed, bigBed, narrowPeaks</td>
+</tr>
+<tr class="row-even"><td><strong>regionsize</strong></td>
+<td>positive integer of the distance (in bp) around features to store data. Default is 1000.</td>
+</tr>
+<tr class="row-odd"><td><strong>windowsize</strong></td>
+<td>positive integer of the size (in bp) to bin data in nonoverlapping windows. For a given regionsize, increasing windowsize proportionally decreases the number of columns in matrix. windowsize must be a factor of regionsize. Defaults is 10.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="92%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Alignment Options</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>strand</strong></td>
+<td>logical value. When TRUE, reverses scores in rows of minus-stranded features in the output matrix. default is FALSE.</td>
+</tr>
+<tr class="row-odd"><td><strong>start</strong></td>
+<td>positive integer indicating the &#8216;featurefile&#8217; column that specifies the 5&#8217; coordinate of the feature. Useful when usefeaturecenter=F and you want to align at the 3&#8217; end of features. When strand = TRUE, minus-stranded intervals are aligned by column defined by ‘stop’. Ignored when meta = TRUE or narrowPeak = TRUE. Default is 2.</td>
+</tr>
+<tr class="row-even"><td><strong>stop</strong></td>
+<td>positive integer indicating the &#8216;featurefile&#8217; column that specifies the 3&#8217; coordinate of the feature. Useful when usefeaturecenter=F and strand = TRUE to align at the 3&#8217; end of strand-specific features. Ignored when meta = TRUE or narrowPeak = TRUE. Default is 3.</td>
+</tr>
+<tr class="row-odd"><td><strong>featurecenter</strong></td>
+<td>logical value. When TRUE, aligns the center of matrix on the center of the intervals in featurefiles. Ignored when meta = TRUE or narrowPeak = TRUE. Defaults to FALSE.</td>
+</tr>
+<tr class="row-even"><td><strong>prunefeaturesto</strong></td>
+<td>character vector of length 1 specifying a bed file name of intervals to intersect featurefiles to before creating the matrix. Useful to prune features outside of regions of interest, such as microarray or sequence-capture regions. Default NULL.</td>
+</tr>
+<tr class="row-odd"><td><strong>narrowpeak</strong></td>
+<td>logical value. When TRUE, if a featurefile is a narrowPeak file, aligns the center of the matrix on the peak summit defined by column 10 in narrowpeak file. Default is FALSE.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Score Options</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>maskbed</strong></td>
+<td>character vector of length 1 specifying a bed file name who’s intervals are the only intervals which should have scores in the matrix, assigning NAs to all other regions. useful to prevent windows outside probed regions from artificially being assigned zeroes. examples include microarray/seqcap probe regions. Default NULL.</td>
+</tr>
+<tr class="row-odd"><td><strong>bgfiller</strong></td>
+<td>character vector of length 1 specifying the value in a matrix to assign windows which have no overlapping scores in a quantitative scorefile. useful to prevent regions with no information from artificially being assigned zeroes. only used when a scorefile is a bedGraph, wig, or bigWig, Default is &#8220;0&#8221;. &#8220;NA&#8221; is suggested when all informative data is in scorefile.</td>
+</tr>
+<tr class="row-even"><td><strong>prunescores</strong></td>
+<td>logical value. when TRUE, removes scores in scorefiles that do not overlap with regions included to be used in matrices. May speed up matrix creation for very large scorefiles. default is FALSE.</td>
+</tr>
+<tr class="row-odd"><td><strong>rpm</strong></td>
+<td>logical value. when TRUE, and a scorefile is an interval file such as a bed, bigBed, sam, or bam file, adjusts the calculated coverage in the matrix to RPM defined by the number of lines in the scorefile (RPM = overlapping_reads * 1000000 / file_lines). default isFALSE.</td>
+</tr>
+<tr class="row-even"><td><strong>scoremat</strong></td>
+<td>logical value. when TRUE, creates score matrices. Set to FALSE to only create fragment-size matrices (fragmats). Defaults to TRUE.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Misc. Options</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>fragmats</strong></td>
+<td>numeric vector of scorefiles indices to create fragment-size matrices for creating v-plots. Defaults to NULL.</td>
+</tr>
+<tr class="row-odd"><td><strong>closest</strong></td>
+<td>bed file name who’s intervals are used to assign names to rows in the matrix based on the nearest interval in featurefiles. Used for example to  assign the closest gene’s name to each transcription-factor binding site defined in featurefiles. Default NULL</td>
+</tr>
+<tr class="row-even"><td><strong>cores</strong></td>
+<td>positive integer. number of scorefiles to process simultaneously for each featurefile. Defaults to “max”, or all but one core.</td>
+</tr>
+<tr class="row-odd"><td><strong>suffix</strong></td>
+<td>character vector of length 1 specifying a string to append to the featurename in the output files. useful if you are using options to specify different alignment types, such as the ends of genes (you may use suffix=&#8221;TTS&#8221;)</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Metafeature Options</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>meta</strong></td>
+<td>Create a meta-matrix, a matrix that aligned features by their 5’ and 3’ ends by scaling all features to the same size, as defined by ‘regionsize’ (bp). When meta = TRUE, regionsize specified the size (in bp) of meta-features. Defaults to FALSE.</td>
+</tr>
+<tr class="row-odd"><td><strong>metaflank</strong></td>
+<td>When meta = TRUE, determines the distance from the meta features (in bp) to define the matrix boundary. Defaults to 1000.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="value">
+<h2>value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h2>
+<p>mat.make will create a direcory for each &#8216;feature&#8217; you aligned data to, and matrices of &#8216;scorefiles&#8217; aligned at each &#8216;feature&#8217; will be stored together in each respective &#8216;feature&#8217; directory. Directory names will be of the form of featurename_mat[windowsize]. Matrix names will be in the form of scorefile_featurefile.mat[windowsize]. mat.make returns a list of character vectors of relative paths to the resulting matrices, one for each &#8216;feature&#8217;. For example, aligning H3K36me3.bw and H3K9ac.bg to TSS.bed and DHS.bed with 10-bp window sizes will result in the following directory structure:</p>
+<div class="highlight-python"><div class="highlight"><pre>├── TSS_mat10
+│   ├── H3K36me3_TSS.mat10
+│   ├── H3K9ac_TSS.mat10
+│   ├── TSS.bed
+├── DHS_mat10
+│   ├── H3K36me3_DHS.mat10
+│   ├── H3K9ac_DHS.mat10
+│   ├── DHS.bed
+</pre></div>
+</div>
+<p>and will return the following list:</p>
+<div class="highlight-python"><div class="highlight"><pre>$TSS_mat10
+[1] &quot;TSS_mat10/H3K36me3_TSS.mat10&quot; &quot;TSS_mat10/H3K9ac_TSS.mat10&quot;
+
+$DHS_mat10
+[1] &quot;DHS_mat10/H3K36me3_DHS.mat10&quot; &quot;DHS_mat10/H3K9ac_DHS.mat10&quot;
+</pre></div>
+</div>
+<p>When genomic intervals are used to generate scores, apart from calculating their density, mat.make can also create two-dimensional matrix listing the sizes of these intervals.
+This type of matrix is useful with paired-end MNase-seq or DNase-seq data which can be used to create fragment size vs distance plots (V-plots, Henikoff et al., 2009).</p>
+</div>
+<div class="section" id="examples">
+<h2>examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="align-signals-at-the-midpoints-of-peak-calls">
+<h3>align signals at the midpoints of peak calls<a class="headerlink" href="#align-signals-at-the-midpoints-of-peak-calls" title="Permalink to this headline">¶</a></h3>
+<p>make a list of data sets to store in matrices</p>
+<div class="highlight-r"><div class="highlight"><pre><span class="o">&gt;</span> scores <span class="o">&lt;-</span> c<span class="p">(</span> <span class="s">&quot;H3K36me3-signal.bw&quot;</span> <span class="p">,</span> <span class="s">&quot;MNase-seq.bg&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>make a list of peaks to align your data to</p>
+<div class="highlight-r"><div class="highlight"><pre><span class="o">&gt;</span> peaks <span class="o">&lt;-</span> c<span class="p">(</span> <span class="s">&quot;DHS-peaks.bed&quot;</span> <span class="p">,</span> <span class="s">&quot;ctcf-peaks.bed&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>make matrices of signals aligned at peaks. the defaults are to get 2 kb surrounding the midpoints of the features with a window size of 10 bp, translating to 200 windows/columns.</p>
+<div class="highlight-r"><div class="highlight"><pre><span class="o">&gt;</span> mat.make <span class="p">(</span> scores <span class="p">,</span> peaks <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="include-only-peaks-that-overlap-with-probes">
+<h3>include only peaks that overlap with probes<a class="headerlink" href="#include-only-peaks-that-overlap-with-probes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-r"><div class="highlight"><pre><span class="o">&gt;</span> mat.make <span class="p">(</span> scores <span class="p">,</span> peaks <span class="p">,</span> strand <span class="o">=</span> <span class="kc">TRUE</span> <span class="p">,</span> prunefeaturesto <span class="o">=</span> <span class="s">&quot;sequence-capture-probes.bed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="include-only-peaks-that-overlap-with-probes-and-also-omit-scores-in-matrices-for-regions-that-are-not-represented-by-a-probe">
+<h3>include only peaks that overlap with probes and also omit scores in matrices for regions that are not represented by a probe<a class="headerlink" href="#include-only-peaks-that-overlap-with-probes-and-also-omit-scores-in-matrices-for-regions-that-are-not-represented-by-a-probe" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-r"><div class="highlight"><pre><span class="o">&gt;</span> mat.make <span class="p">(</span> scores <span class="p">,</span> <span class="s">&quot;genes.bed&quot;</span> <span class="p">,</span> strand <span class="o">=</span> <span class="kc">TRUE</span> <span class="p">,</span> usefeaturecenter <span class="o">=</span> <span class="kc">FALSE</span> <span class="p">,</span> prunefeaturesto <span class="o">=</span> <span class="s">&quot;sequence-capture-probes.bed&quot;</span> <span class="p">,</span> maskbed <span class="o">=</span> <span class="s">&quot;sequence-capture-probes.bed&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="make-matrices-of-signals-aligned-at-tsss">
+<h3>make matrices of signals aligned at TSSs<a class="headerlink" href="#make-matrices-of-signals-aligned-at-tsss" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-r"><div class="highlight"><pre><span class="o">&gt;</span> mat.make <span class="p">(</span> scores <span class="p">,</span> <span class="s">&quot;genes.bed&quot;</span> <span class="p">,</span> strand <span class="o">=</span> <span class="kc">TRUE</span> <span class="p">,</span> usefeaturecenter <span class="o">=</span> <span class="kc">FALSE</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="align-signals-at-the-ends-of-genes">
+<h3>align signals at the ends of genes<a class="headerlink" href="#align-signals-at-the-ends-of-genes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-r"><div class="highlight"><pre><span class="o">&gt;</span> mat.make <span class="p">(</span> scores <span class="p">,</span> <span class="s">&quot;genes.bed&quot;</span> <span class="p">,</span> strand <span class="o">=</span> <span class="kc">TRUE</span> <span class="p">,</span> usefeaturecenter <span class="o">=</span> <span class="kc">FALSE</span> <span class="p">,</span> start <span class="o">=</span> <span class="m">3</span> <span class="p">,</span> stop <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="align-signals-at-start-codons">
+<h3>align signals at start codons<a class="headerlink" href="#align-signals-at-start-codons" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-r"><div class="highlight"><pre><span class="o">&gt;</span> mat.make <span class="p">(</span> scores <span class="p">,</span> <span class="s">&quot;genes.bed&quot;</span> <span class="p">,</span> strand <span class="o">=</span> <span class="kc">TRUE</span> <span class="p">,</span> usefeaturecenter <span class="o">=</span> <span class="kc">FALSE</span> <span class="p">,</span> start <span class="o">=</span> <span class="m">7</span> <span class="p">,</span> stop <span class="o">=</span> <span class="m">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mat.ops.html" class="btn btn-neutral float-right" title="mat.ops">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mat.heatmap.html" class="btn btn-neutral" title="mat.heatmap"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Daniel Vera.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50602521-1', 'github.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+</body>
+</html>

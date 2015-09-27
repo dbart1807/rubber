@@ -1,0 +1,85 @@
+###############
+*bed.windowcov*
+###############
+calculate interval densities in windows
+
+**************************************************************************
+description
+**************************************************************************
+
+``bed.windowcov`` counts the number genomic intervals in one bed file that overlap at each genomic interval in another bed file.
+
+**************************************************************************
+usage
+**************************************************************************
+
+::
+
+  bed.windowcov ( bedfile , windowbed , windowsize=25 , stepsize=windowsize , scalar="rpm" )
+
+
+**************************************************************************
+arguments
+**************************************************************************
+
+===========================      ===============================================================================================================================================================================================================
+ Main options                     Description
+===========================      ===============================================================================================================================================================================================================
+**bedfile**                         string defining the bed file name to count the intervals within 'windowbed' intervals.
+**windowbed**                       string defining the bed file name containing intervals within which to count overlapping 'bedfile' intervals.
+**windowsize**                      size of windows (in bp) in 'windowbed'. Only needs to be defined if windowsize > stepsize.
+**stepsize**                        distances between intervals (in bp) in 'windowbed'. Only needs to be defined if windowsize > stepsize.
+**scalar**                          number to multiply interval counts by. Default is "rpm", which multiplies the coverage to report intervals per million.
+===========================      ===============================================================================================================================================================================================================
+
+
+**************************************************************************
+output
+**************************************************************************
+``bed.windowcov`` generates a bedGraph file counting the number of intervals in 'bedfile' that overlap with the intervals in 'windowbed'.
+The resulting bedGraph file will contain the first three columns of the 'windowbed' file and the counts of overlapping intervals in 'bedfile' in the fourth column.
+If the intervals in 'windowbed' overlap, ``bed.windowcov`` can reduce the size of these intervals if 'windowsize' and 'stepsize' are defined.
+This must be done in order to generate bigWig files for the UCSC genome browser.
+
+**************************************************************************
+examples
+**************************************************************************
+
+calculate the density of reads in bed format in 100-bp nonoverlapping intervals across the genome.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. highlight:: r
+
+make a bed of 100-bp nonoverlapping intervals in the human genome
+
+::
+
+ > windows <- bed.makewindows ( "/path/to/genomefile" , windowsize = 100 , genome = TRUE )
+
+generate a bedGraph of read densities
+
+::
+
+ > bed.windowcov ( "MNaseSeqFragments" , windows )
+
+
+create a dyad-density bedGraph (aka frenters) of MNase-seq data within probed regions using 100-bp windows at 10-bp step sizes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+create 100-bp windows at 10-bp step-sizes within probed regions
+
+::
+
+ > bed.makewindows ( "seqcapregions.bed" , windowsize=100 , stepsize=10 , sort.ranges = "-100,100" )
+
+generate a bed of fragment centers
+
+::
+
+ > MNaseSeqCenters <- bed.centers ( "MNaseSeqFragments.bed" )
+
+generate a bedGraph of dyad densities
+
+::
+
+ > bed.windowcov ( "MNaseSeqCenters.bed" , seqcapwindows , windowsize=100 , stepsize = 10)

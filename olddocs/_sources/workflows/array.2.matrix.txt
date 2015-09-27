@@ -1,0 +1,107 @@
+#####################################
+*make matrices from microarray gffs*
+#####################################
+In order to make matrices from microarray gffs, you should have the following:
+
+* gffs of microarray data. This workflow assumes high-density (overlapping probes) data.
+* a bed file of genes or other genomic features you'd generate matrices from. If your genome is hosted on the UCSC genome browser, you can obtain a gene bed file from the table browser.
+
+
+
+
+
+**************************************************************************
+workflow
+**************************************************************************
+
+
+.. highlight:: r
+
+1. Open R in your working directory of gffs and load rage.
+
+::
+
+ $ R
+
+::
+
+ > library(devtools)
+ > load_all("/data/rage")
+
+
+2. Make a vector of gff file names in current directory
+
+::
+
+ > gffs <- files ("*.gff")
+ > gffs
+ [1] "z3b1c01.gff" "z3b1c02.gff" "z3b1c03.gff"
+
+
+Here, 'z3' is the name of the array design, 'b1' specifies it is a first hyb, and 'c01' specifies cycle 1 (subarray 1). Your microarray nomenclature may be different, but that's OK.
+
+3. Convert gffs to bedGraph files
+
+::
+ 
+ > bgs <- lapply ( gffs , gff.2.bg )
+ > bgs
+ [[1]]
+ [1] "z3b1c01.bg"
+ 
+ [[2]]
+ [1] "z3b1c02.bg"
+
+ [[3]]
+ [1] "z3b1c03.bg"
+
+At this point you may want to check the distribution of probe scores with bg.hist. If gff intervals (probes) overlap at all, this breaks a rule in the bedGraph format, which specifies that no intervals should overlap. 
+One way around this is to create nonoverlapping windows of the probed regions and calculate the average probe score at each base pair with bg.map. 
+Here, we will make 1-bp windows at the microarray regions, then calculate the average score of all overlapping probes at each window.
+
+4. Make 1-bp windows at 1-bp step size of the microarray regions. We can use any of the bedGraphs to grab the microarray regions, and will name the window bed "z3w1.bed" because my I'm making 1-bp windows from my 'z3' array design.
+
+::
+
+ > bed.makewindows ( bgs[[1]] , windowsize = 1 , outname = "z3w1.bed" )
+
+5. Calculate average probe score at each base pair. We'll also use unlist to convert the resulting list of file names into a vector so it will be compatible with mat.make later.
+
+::
+
+ > windowedbgs <- unlist ( lapply ( bgs , bg.map , bedfile = "z3w1.bed" ) )
+ > windowedbgs
+ [1] "z3b1c01_z3w1.bg" "z3b1c02_z3w1.bg" "z3b1c03_z3w1.bg"
+
+At this point you have bedGraph files suitable for creating matrices and also for visualization on the UCSC genome browser. 
+We'll only cover making matrices in this workflow. 
+
+6. To create a matrix of microarray scores at genes, we first want to prune out genes that are not covered on our microarray. 
+To prune our genes, we can intersect the gene bed with any bed or bedGraph file that is limited to our microarray probes. 
+This includes our bedGraph files in 'bgs' or 'windowsbgs' and our 1-base-pair window bed ( z3w1.bed ). 
+We'll use our window bed to prune our gene list
+
+::
+ 
+ > arraygenes <- bed.intersect( "/path/to/genes.bed" , "z3w1.bed" )
+ > arraygenes
+ [1] "genes_x_z3w1.bed"
+
+
+Since the gene name will be appended to all of our matrices, let's make the gene name prettier.
+
+::
+
+  system ("mv genes_x_z3w1.bed z3genes.bed")
+
+7. Now create matrices of our bedGraphs aligned at the TSSs of our array genes. We will use the default parameters for regionsize (2000 bp) and windowsize (10 bp).
+We want to use bgfiller = "NA" so that regions not covered by probes are not artificially assigned zeroes. 
+We want to use featurecenter = FALSE because we want to align at the 5' end of the gene intervals (TSSs) and not the midpoints of genes. 
+We want to use strand = TRUE because we want to use the rightmost boundaries in our gene bed as the alignment point for minus-stranded genes.
+
+::
+
+ > mat.make ( windowedbgs , arraygenes , strand = TRUE , bgfiller = "NA" , featurecenter = FALSE )
+
+Your matrices will be saved to a directory named "arraygenes_mat10".
+
