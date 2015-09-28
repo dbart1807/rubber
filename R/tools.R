@@ -9,7 +9,7 @@ lslS<-function(){system("ls -lS")}
 
 cranex <- function(what) {
   url <- paste("https://github.com/search?l=r&q=%22", as.character(substitute(what)), "%22+user%3Acran+language%3AR&ref=searchresults&type=Code&utf8=%E2%9C%93", sep="", collapse="")
-  browseURL(url)
+  print(url)
 }
 
 resizeWindow <- function(){
@@ -49,19 +49,23 @@ rere<-function(){
 	library(rage)
 }
 
-shead<- function(filename, n=10){
-	s <- system(paste("head -n",n,filename),intern=FALSE)
-	return(s)
+shead <- function(filenames, n=10){
+	cmdString <- paste("head -n",n,filenames)
+  res <- rage.run(cmdString,lines=TRUE, quiet=TRUE)
+	dump <- lapply(res,cat,sep="\n")
 }
-stail<- function(filename, n=10){
-	s <- system(paste("tail -n",n,filename),intern=FALSE)
-	return(s)
+stail <- function(filenames, n=10){
+	cmdString <- paste("tail -n",n,filenames)
+  res <- rage.run(cmdString,lines=TRUE, quiet=TRUE)
+	dump <- lapply(res,cat,sep="\n")
 }
 sless <- function(filename){
 	system(paste("less",filename))
 }
-scats <- function(filename){
-	system(paste("cat",filename))
+scats <- function(filenames, n=10){
+	cmdString <- paste("cat",filenames)
+  res <- rage.run(cmdString,lines=TRUE, quiet=TRUE)
+	dump <- lapply(res,cat,sep="\n")
 }
 
 
@@ -169,17 +173,6 @@ function( names,suffix){
 
 
 
-# file read wrappers
-read.fmat <-
-function( mat, ... ){
-	as.matrix(read.table(mat,stringsAsFactors=FALSE,sep="\t",row.names=1, ... ))
-}
-read.mat <-
-function( mat, ... ){
-	m <- read_tsv(mat,col_names=FALSE, ... )
-  rownames(m) <- m[,1]
-  m <- data.matrix(m[,-1])
-}
 read.tsv <-
 function( tsv, ... ){
 	read.table(tsv,stringsAsFactors=FALSE,sep="\t", ... )
@@ -193,10 +186,7 @@ function( filenames ){
 	}
 	filenames
 }
-write.mat <-
-function( mat, ... ){
-	write.table(mat,sep="\t",quote=FALSE,col.names=FALSE, ... )
-}
+
 
 write.tsv <-
 function( tsv, colnames=FALSE, rownames=FALSE, ... ){

@@ -1,4 +1,4 @@
-rage.hist <-
+rageHist <-
 function( scorelist , vlines=0, hlines=0, cdf = FALSE , dens=TRUE , drawlegend = TRUE , legendpos="topright" , fraction = FALSE , brks = 50 , reverse = FALSE , xlims=NULL, ylims=NULL, plotcolors=rainbow(length(scorelist)), legendnames=names(scorelist), threads=getOption("threads",1L) , printn=TRUE ) {
 
 	numbeds<-length(scorelist)
