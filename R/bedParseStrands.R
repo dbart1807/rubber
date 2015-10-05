@@ -1,10 +1,10 @@
-bed.parsestrands <-
+bedParseStrands <-
 function( bedfile , plus.suffix="plus" , minus.suffix="minus" ){
 
 	library(tools)
 	
 	# make sure input is only 1 file
-	if(length(bedfile) > 1){stop("bed.parselengths can only take 1 file")}
+	if(length(bedfile) > 1){stop("bedParseLengths can only take 1 file")}
 
 	ext<-file_ext(bedfile)
 	fragname<-basename(removeext(bedfile))

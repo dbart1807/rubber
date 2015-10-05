@@ -1,6 +1,6 @@
 #' Retreive scores in bedGraph files
 #'
-#' \code{bg.scores} returns a list of vectors containing the scores for intervals in a set of bedGraph files.
+#' \code{bgScores} returns a list of vectors containing the scores for intervals in a set of bedGraph files.
 #'
 #' @param bgFiles A character vector of paths to bedgraph files.
 #' @param threads A positive integer specifying how many bams to process simultaneously.

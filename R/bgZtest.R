@@ -97,7 +97,7 @@ bgZtest <- function( testbg , controlbg , verbose=T , testname=NULL , controlnam
   write.tsv(negseg,file=negsegoutname)
 
   if(verbose){cat("conforming bg\n")}
-  bgsegc <- bg.conform(bgoutname,threads=threads)
+  bgsegc <- bgConform(bgoutname,threads=threads)
 
   if(verbose){cat("merging segments\n")}
   possegm <- bedtoolsMerge(possegoutname,flank=mergewithin)
@@ -107,7 +107,7 @@ bgZtest <- function( testbg , controlbg , verbose=T , testname=NULL , controlnam
 
 }
 
-bg.conform <- function( bgFiles, threads=getOption("threads",1L) ){
+bgConform <- function( bgFiles, threads=getOption("threads",1L) ){
 
   outnames <- paste0(basename(removeext(bgFiles)),"_conform.bg")
 

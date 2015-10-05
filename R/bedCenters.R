@@ -1,6 +1,6 @@
 bedCenters <-
 function( bedfile, buffer="10G" ){
-	if(length(bedfile) > 1){stop("bed.centers can only take 1 file")}
+	if(length(bedfile) > 1){stop("bedCenters can only take 1 file")}
 	#MAKE FILE OF FRAGMENT CENTERS
 	outname<-paste(basename(removeext(bedfile)),"_centers.bed",sep="")
 	cat("calculating fragment centers\n")

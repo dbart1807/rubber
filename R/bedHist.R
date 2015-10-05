@@ -8,7 +8,7 @@
 bedHist <-
 function( bedFiles , sample=NULL , threads=getOption("threads",1L), ... ){
 	options(scipen=99999)
-	scores <- bed.sizes(bedFiles, threads=threads, sample=sample, threads=threads)
+	scores <- bedSizes(bedFiles, threads=threads, sample=sample, threads=threads)
 
 	rageHist(scores, threads=threads, ... )
 

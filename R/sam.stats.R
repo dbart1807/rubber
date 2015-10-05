@@ -100,7 +100,7 @@ sam.stats <- function (bamFiles, genomefile, probes=NULL , expandprobes=200 , pl
 
 
   if( !is.null(probes) & expandprobes>0 ){
-    probefile=bed.slop(probes,genomefile,expandprobes,expandprobes)
+    probefile=bedSlop(probes,genomefile,expandprobes,expandprobes)
   } else{
     probefile=probes
   }

@@ -1,6 +1,6 @@
 #' Retreive interval sizes in bed files
 #'
-#' \code{bed.sizes} returns a list of vectors containing the sizes for intervals in a set of bed files.
+#' \code{bedSizes} returns a list of vectors containing the sizes for intervals in a set of bed files.
 #'
 #' @param bedFiles A character vector of paths to bed files.
 #' @param threads A positive integer specifying how many bams to process simultaneously.

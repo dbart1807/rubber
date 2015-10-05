@@ -29,7 +29,7 @@ function( bedfiles, genomefa , pdfname , numbases=50, sizerange=c(1,Inf), numfra
 
 
 		if(is.infinite(sizerange[2]) == FALSE & sizerange[1]>1){
-			beds[i]<-bed.parselengths(beds[i],brks=sizerange)
+			beds[i]<-bedParseLengths(beds[i],brks=sizerange)
 		}
 
 		if(is.null(numfrags) == FALSE){

@@ -1,6 +1,6 @@
 #' Sort beds by chromosome and position
 #'
-#' \code{bed.sort} sorts bed files chromosome then position using the system's \code{sort}.
+#' \code{bedSort} sorts bed files chromosome then position using the system's \code{sort}.
 #'
 #' @param bedFiles A character vector of paths to bed files.
 #' @param sortThreads A positive integer specifying the number of sorting and compression threads

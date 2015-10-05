@@ -1,6 +1,6 @@
 #' Parse intervals in bed files by size.
 #'
-#' \code{bed.parselengths} separates intervals from a bed file into separate bed files based on interval sizes using the system \code{awk}.
+#' \code{bedParseLengths} separates intervals from a bed file into separate bed files based on interval sizes using the system \code{awk}.
 #'
 #' @param bedFiles A character vector of paths to bed files.
 #' @param breaks A numeric vector of read lengths used as break points to parse reads by length. For example, if breaks=c(0,100,200), reads will be parsed into reads of length 0-99 and 100-199. Length of vector must beat least 2.

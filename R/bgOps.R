@@ -106,7 +106,8 @@ function( bglist1 , operation , bglist2=NULL , outnames = NULL , pattern=NULL , 
 			cmdString <- paste("paste",bglist1,bglist2,"| awk '{if($8 != 0 && $4 != 0){print $1,$2,$3,log($4/$8)/log(2)}",if(forceall){"else{print $1,$2,$3,0}"},"}' OFS='\t' >",outnames)
 		}
 		if(operation=="ratio"){
-			cmdString <- paste("paste",bglist1,bglist2,"| awk '{print $1,$2,$3,$4/$8}' OFS='\t' >",outnames)
+			cmdString <- paste("paste",bglist1,bglist2,"| awk '{if($8 != 0){print $1,$2,$3,($4/$8)}",if(forceall){"else{print $1,$2,$3,0}"},"}' OFS='\t' >",outnames)
+			#cmdString <- paste("paste",bglist1,bglist2,"| awk '{print $1,$2,$3,$4/$8}' OFS='\t' >",outnames)
 		}
 		if(operation=="difference"){
 			cmdString <- paste("paste",bglist1,bglist2,"| awk '{print $1,$2,$3,$4-$8}' OFS='\t' >",outnames)

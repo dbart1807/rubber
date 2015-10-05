@@ -38,18 +38,18 @@ function( featurefiles,annotationfiles,suffix,genomefile,numshuffles=100,bpylim=
 	# convert intervals to centers
 	if(usefeaturecenter){
 		cat("calculating feature centers\n")
-		feats<-unlist(mclapply(feats,bed.centers,mc.cores=cores))
-		sfeats<-unlist(mclapply(sfeats,bed.centers,mc.cores=cores))
+		feats<-unlist(mclapply(feats,bedCenters,mc.cores=cores))
+		sfeats<-unlist(mclapply(sfeats,bedCenters,mc.cores=cores))
 	}
 	if(useannocenter){
 		cat("calculating annotation centers\n")
-		annos<-unlist(mclapply(annos,bed.centers,mc.cores=cores))
+		annos<-unlist(mclapply(annos,bedCenters,mc.cores=cores))
 	}
 
 	# shuffle features
 	cat("shuffling features\n")
 	sfeatnames<-lapply(1:numfeats,function(f) unlist(lapply(1:numshuffles, function(s) paste0(tmpdir,featnames[f],"_shuffle_",s,".bed") ) ) )
-	sfeats<-mclapply(1:numfeats,function(f) unlist(lapply(1:numshuffles,function(s) bed.shuffle(featurefiles[f], genomefile=genomefile, outname=sfeatnames[[f]][s],include=if(is.null(targetregions)==FALSE){targetregions} else{NULL}))) , mc.cores=cores , mc.preschedule=F)
+	sfeats<-mclapply(1:numfeats,function(f) unlist(lapply(1:numshuffles,function(s) bedShuffle(featurefiles[f], genomefile=genomefile, outname=sfeatnames[[f]][s],include=if(is.null(targetregions)==FALSE){targetregions} else{NULL}))) , mc.cores=cores , mc.preschedule=F)
 
 	# count intervals
 	if(!is.null(targetregions)){
@@ -68,8 +68,8 @@ function( featurefiles,annotationfiles,suffix,genomefile,numshuffles=100,bpylim=
 
 	# cat("finding nearby genes\n")
 	# if(is.null(genebed)==FALSE){
-	# 	feats<-unlist(mclapply(feats,bed.closest,bed2=genebed,mc.cores=cores))
-	# 	sfeats<-unlist(mclapply(sfeats,bed.closest,bed2=genebed,mc.cores=cores))
+	# 	feats<-unlist(mclapply(feats,bedClosest,bed2=genebed,mc.cores=cores))
+	# 	sfeats<-unlist(mclapply(sfeats,bedClosest,bed2=genebed,mc.cores=cores))
 	# }
 
 
