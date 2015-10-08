@@ -2,7 +2,6 @@ bgRead <- function ( bgfiles , makematrix=TRUE , bgnames=NULL , enforceEquality=
 
 	numbgs<-length(bgfiles)
 
-	if(is.null(bgnames)){ names(bgl) <- basename(removeext(bgfiles)) } else{ names(bgl) <- bgnames }
 
 
 	if(scores){
@@ -17,16 +16,19 @@ bgRead <- function ( bgfiles , makematrix=TRUE , bgnames=NULL , enforceEquality=
 
 		if(!equallength & makematrix & enforceEquality){stop("number of scores among files are not identical")}
 
+		if(is.null(bgnames)){ names(bgl) <- basename(removeext(bgfiles)) } else{ names(bgl) <- bgnames }
+
 		if(makematrix & equallength){
 
-		bgl<-data.matrix(as.data.frame(bgl))
-
+			bgl<-data.matrix(as.data.frame(bgl))
+			
 		}
 
 	} else{
 
 		bgl <- mclapply( bgfiles , read_tsv , col_names=FALSE , mc.cores=threads, mc.preschedule=FALSE )
-		
+		if(is.null(bgnames)){ names(bgl) <- basename(removeext(bgfiles)) } else{ names(bgl) <- bgnames }
+
 	}
 
 

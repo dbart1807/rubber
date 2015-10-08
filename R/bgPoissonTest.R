@@ -1,17 +1,19 @@
 bgPoissonTest <- function( bedGraph1, bedGraph2=NULL, lower=FALSE, adjustp="fdr", threshold=0.05, plot=FALSE, lambda=NULL, trimmedmean=c(0.01,0.99), addone=TRUE, log10p=TRUE ){
 
   outname <- paste0(basename(removeext(bedGraph1)), "_ppois.bed")
+  bgoutname <- paste0(basename(removeext(bedGraph1)), "_ppois.bg")
+
   if(is.null(bedGraph2)){
-    pairs=FALSE
+    paired=FALSE
   } else{
-    pairs=TRUE
+    paired=TRUE
     if(!is.null(lambda)){cat("bedGraph2 defined, ignoring lambda\n")}
   }
 
   bg1 <- read_tsv( bedGraph1, col_names=F)
   if(addone){ bg1[,4] <- bg1[,4]+1 }
 
-  if(pairs){
+  if(paired){
     bg2 <- read_tsv( bedGraph2, col_names=F)
     stopifnot(nrow(bg1)==nrow(bg2))
     if(addone){ bg2[,4] <- bg2[,4]+1 }
@@ -47,6 +49,9 @@ bgPoissonTest <- function( bedGraph1, bedGraph2=NULL, lower=FALSE, adjustp="fdr"
     pvals2[pvals2>10] <- 10
   }
 
+  bgout <- bg1
+  bgout[,4] <- pvals2
+  write_tsv(bgout,bgoutname,col_names=FALSE)
   out <- cbind(bg1[segs,1:3],stringsAsFactors=F)
   write.tsv(out,file=outname)
   return(outname)
