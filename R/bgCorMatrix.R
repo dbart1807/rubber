@@ -5,8 +5,8 @@ bgCorMatrix <- function( bgs , metadata=NULL , cores=2 , cormethod="pearson", th
 
   numfiles=length(bgs)
 
-  fl=bgRead(bgs, threads=threads, enforceEquality=TRUE)
-
+  fl=bgRead(bgs, threads=threads, makematrix=TRUE , enforceEquality=TRUE)
+  fl <- as.data.frame(fl)
   eg=expand.grid(1:numfiles,1:numfiles)
 
   pb <- txtProgressBar(min = 0, max = numfiles*numfiles, style = 3)
