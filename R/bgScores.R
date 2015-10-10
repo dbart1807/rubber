@@ -5,7 +5,7 @@
 #' @param bgFiles A character vector of paths to bedgraph files.
 #' @param threads A positive integer specifying how many bams to process simultaneously.
 
-bgScores <- function( bgFiles , threads=getOption("threads", 1L), sample=NULL, chrom=NULL ){
+bgScores <- function( bgFiles , threads=getOption("threads", 1L), sample=NULL, chrom=NULL, first=NULL ){
 
   numbeds <- length(bgFiles)
 
@@ -18,6 +18,8 @@ bgScores <- function( bgFiles , threads=getOption("threads", 1L), sample=NULL, c
   } else if( !is.null(chrom)){
     stopifnot(length(chrom)==1)
     cmdString <- paste0("grep -P '^",chrom,"\\t' ",bgFiles," | awk '{print $4}'")
+  } else if(!is.null(first) & is.numeric(first)){
+    cmdString <- paste0("head -n",first,bgFiles," | awk '{print $4}'")
   } else{
     cmdString <- paste("awk '{print $4}'",bgFiles)
   }

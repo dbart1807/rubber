@@ -10,6 +10,6 @@ function( bgfiles , threads=getOption("threads",1L), sample=NULL , chrom=NULL, .
 
 	scores <- bgScores(bgfiles, threads=threads, sample=sample, chrom=chrom)
 
-	rage.hist(scores, ... )
+	rageHist(scores, ... )
 
 }
