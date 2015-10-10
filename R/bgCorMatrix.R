@@ -5,7 +5,7 @@ bgCorMatrix <- function( bgs , metadata=NULL , cores=2 , cormethod="pearson", th
 
   numfiles=length(bgs)
 
-  fl=read.bgs(bgs, threads=threads, encorceEquality=TRUE)
+  fl=bgRead(bgs, threads=threads, encorceEquality=TRUE)
 
   eg=expand.grid(1:numfiles,1:numfiles)
 
