@@ -43,7 +43,7 @@ bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), leg
       if(lspan>0){
         yvals <- loess(yvals~xvals,span=lspan)$y
       }
-      lines(xvals,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i], type="s")
+      segments(xvals,yvals,xvals2,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
       if(flank !=0){abline(v=region[r,2:3])}
       #segments(xvals,yvals,xvals2, yvals, col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
     }
