@@ -1,4 +1,4 @@
-bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), legendnames=basename(removeext(bgFiles)) ,  threads=getOption("threads",1L) , linetypes=1, linewidths=3, lspan=0, flank=0 , ylabel="score" , xline=0 , maxplots=100 ) {
+bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), legendnames=basename(removeext(bgFiles)) ,  threads=getOption("threads",1L) , linetypes=1, linewidths=3, lspan=0, flank=0 , ylabel="score" , xline=0 , maxplots=100, connectWithin=0 ) {
 
   numbgs=length(bgFiles)
   if(numbgs>length(linetypes)){linetypes=rep(linetypes,numbgs)}
@@ -6,8 +6,7 @@ bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), leg
 
   if(all(file.exists(regions))){
     region <- read_tsv(regions,col_names=FALSE)
-  }
-  else if(grepl("-",regions) & grepl(":",regions)){
+  } else if(grepl("-",regions) & grepl(":",regions)){
     region <- gsub(",","",regions)
     region <- gsub(":","-",region)
     region <- strsplit(region,"-")
@@ -37,13 +36,23 @@ bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), leg
     for(i in seq_len(numbgs)){
 
       xvals <-  scores[[i]][,2]
+      numvals <- length(xvals)
       xvals2 <- scores[[i]][,3]
       yvals <-  scores[[i]][,4]
+      adjacent <- which( xvals[2:length(xvals)] - xvals2[1:(length(xvals2)-1)] <= connectWithin )
 
       if(lspan>0){
         yvals <- loess(yvals~xvals,span=lspan)$y
       }
       segments(xvals,yvals,xvals2,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
+
+      if(length(adjacent)>0){
+        adjacent <- adjacent[adjacent!=numvals]
+        segments(xvals2,yvals[adjacent],xvals2,yvals[adjacent+1],col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
+      }
+
+
+
       if(flank !=0){abline(v=region[r,2:3])}
       #segments(xvals,yvals,xvals2, yvals, col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
     }
