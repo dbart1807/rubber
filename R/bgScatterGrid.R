@@ -13,9 +13,9 @@ function( bgfiles, bgnames=NULL, threads=getOption("threads",1L), ...  ){
 
 	#make list of matrices
 	#cat("reading in bedgraphs\n")
-	if(is.null(bgnaames)){ bgnames <- basename(removeext(bgfiles)) }
+	if(is.null(bgnames)){ bgnames <- basename(removeext(bgfiles)) }
 
-	bglist<-read.bgs(bgfiles)
+	bglist<-bgRead(bgfiles,threads=threads)
 
 	#make pairwise matrix correlations
 	#cat("calculating global correlations\n")
@@ -24,7 +24,7 @@ function( bgfiles, bgnames=NULL, threads=getOption("threads",1L), ...  ){
 	bottoms <- numbgs^2:(numbgs^2-numbgs+1)
 	lefts <- seq(1,numbgs^2,numbgs)
 	for(i in 1:(numbgs^2 ) ) {
-		scatterdens(bglist[[pairs[i,1]]] , bglist[[pairs[i,2]]],basic=T, ... , xaxislabel=if(i %in% bottoms){T} else{F}, yaxislabel=if(i %in% lefts){T} else{F}, xlabel=bgnames[pairs[i,1]], ylabel=bgnames[pairs[i,2]] )
+		scatterdens(bglist[pairs[i,1],] , bglist[pairs[i,2],],basic=T, ... , xaxislabel=if(i %in% bottoms){T} else{F}, yaxislabel=if(i %in% lefts){T} else{F}, xlabel=bgnames[pairs[i,1]], ylabel=bgnames[pairs[i,2]] )
 	}
 	#bgcors<-as.numeric(unlist(mclapply(1:nrow(pairs),function(x){
 	#	cor(bglist[[pairs[x,1]]] , bglist[[pairs[x,2]]] , use="complete.obs", method="spearman" )
