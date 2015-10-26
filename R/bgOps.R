@@ -121,7 +121,7 @@ function( bglist1 , operation , bglist2=NULL , outnames = NULL , pattern=NULL , 
 
 	}
 
-	res <- rage.run( cmdString, threads )
+	res <- cmdRun( cmdString, threads )
 
 	return(outnames)
 

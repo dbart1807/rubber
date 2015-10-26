@@ -12,7 +12,7 @@ function ( bamfiles , q = 0 , threads=getOption("threads",1L) ){
 
 	cmdString <- paste( "samtools view -c -q" , q , bamfiles )
 
-	res <- as.numeric ( rage.run( cmdString, threads, intern=TRUE ) )
+	res <- as.numeric ( cmdRun( cmdString, threads, intern=TRUE ) )
 
 	return( res )
 }

@@ -21,7 +21,7 @@ function( bgfiles, normalizeto = 1:length(bgfiles) , threads=getOption("threads"
 	cat("normalizing data\n")
 	cmdString <- paste("sort -T . -k4,4n",bgfiles,"| paste -",bgref,"| awk '{print $1,$2,$3,$8}' OFS='\t' | sort -T . -k1,1 -k2,2n >",outnames)
 
-	res <- rage.run(cmdString,threads=threads)
+	res <- cmdRun(cmdString,threads=threads)
 	unlink(bgref)
 	unlink(bgrefs)
 	return(outnames)

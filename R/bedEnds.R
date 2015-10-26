@@ -22,7 +22,7 @@ function( bedFiles, end=5, strand=TRUE , threads=getOption("threads",1L) ){
 		"| sort -T . -k1,1 -k2,2n >",
 		outnames )
 
-	rage.run(cmdString,threads)
+	cmdRun(cmdString,threads)
 
 	return(outnames)
 

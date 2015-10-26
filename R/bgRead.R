@@ -8,7 +8,7 @@ bgRead <- function ( bgfiles , makematrix=TRUE , bgnames=NULL , enforceEquality=
 
 		cmdString <- paste("cut -f 4",bgfiles)
 
-		bgl <- rage.run(cmdString,intern=T,threads=threads)
+		bgl <- cmdRun(cmdString,intern=T,threads=threads)
 
 		bgl <- lapply(bgl,as.numeric)
 

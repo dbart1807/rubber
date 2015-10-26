@@ -34,7 +34,7 @@ function( bedFiles , breaks , threads=getOption("threads",1L) ){
 			"}' OFS='\t'", bedFiles[i]
 	)}))
 
-	res <- rage.run(cmdString,threads)
+	res <- cmdRun(cmdString,threads)
 
 	return(outnames)
 }

@@ -24,7 +24,7 @@ function( bgs, quantiles=c(0,0.25,0.5,0.75,1), threads=getOption("threads",1L) )
     )
   }))
 
-  q <- rage.run( cmdString , threads=threads , lines=TRUE)
+  q <- cmdRun( cmdString , threads=threads , lines=TRUE)
   q <- lapply(q,as.numeric)
   q <- data.matrix(as.data.frame(q))
   colnames(q) <- bgnames

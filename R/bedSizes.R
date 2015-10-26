@@ -14,7 +14,7 @@ bedSizes <- function( bedFiles , sample=NULL , threads=getOption("threads", 1L) 
     stopifnot(is.numeric(sample), length(sample)==1)
     cmdString <- paste("shuf -n",sample,bedFiles,"| awk '{print $3-$2}'")
   }
-  res <- rage.run( cmdString, threads, lines=TRUE)
+  res <- cmdRun( cmdString, threads, lines=TRUE)
   res <- lapply( res, as.numeric )
   names(res) <- basename(bedFiles)
 

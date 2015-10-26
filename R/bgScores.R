@@ -26,7 +26,7 @@ bgScores <- function( bgFiles , threads=getOption("threads", 1L), sample=NULL, c
 
 
 
-  res <- rage.run( cmdString, threads, lines=TRUE)
+  res <- cmdRun( cmdString, threads, lines=TRUE)
   res <- lapply( res, as.numeric )
   names(res) <- basename(bgFiles)
 

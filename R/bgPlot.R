@@ -26,7 +26,7 @@ bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), leg
       "| bedtools intersect -u -a ", bgFiles, " -b stdin "
     )
 
-    scores <- rage.run( cmdString, tsv=TRUE, threads=threads)
+    scores <- cmdRun( cmdString, tsv=TRUE, threads=threads)
 
     xlims=c( min(unlist(lapply(scores,"[",2))), max(unlist(lapply(scores,"[",2))))
     ylims=c( min(unlist(lapply(scores,"[",4))), max(unlist(lapply(scores,"[",4))))

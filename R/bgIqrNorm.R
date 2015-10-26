@@ -28,7 +28,7 @@ function( bgs, referenceIqr=NULL , mediancenter=FALSE, threads=getOption("thread
         bgs[x],">",outnames
     )
 
-  res <- rage.run(cmdString, threads=threads)
+  res <- cmdRun(cmdString, threads=threads)
 
   return(outnames)
 

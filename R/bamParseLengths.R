@@ -38,7 +38,7 @@ function( bamFiles , breaks , threads=getOption("threads",1L) ){
 		)
 	}))
 
-	res <- rage.run(cmdString,threads)
+	res <- cmdRun(cmdString,threads)
 
 	return(outnames)
 }

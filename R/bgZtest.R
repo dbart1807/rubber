@@ -122,7 +122,7 @@ bgConform <- function( bgFiles, threads=getOption("threads",1L) ){
     ">", outnames
   )
 
-  rage.run( cmdString, threads=threads)
+  cmdRun( cmdString, threads=threads)
 
   return(outnames)
 
