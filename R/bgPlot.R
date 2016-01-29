@@ -1,4 +1,4 @@
-bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), legendnames=basename(removeext(bgFiles)) ,  threads=getOption("threads",1L) , linetypes=1, linewidths=3, lspan=0, flank=0 , ylabel="score" , xline=0 , maxplots=100, connectWithin=0 ) {
+bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), legendnames=basename(removeext(bgFiles)) ,  dots=F , ylims=NA , threads=getOption("threads",1L) , linetypes=1, linewidths=3, lspan=0, flank=0 , ylabel="score" , xline=0 , maxplots=100, connectWithin=0 ) {
 
   numbgs=length(bgFiles)
   if(numbgs>length(linetypes)){linetypes=rep(linetypes,numbgs)}
@@ -6,6 +6,7 @@ bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), leg
 
   if(all(file.exists(regions))){
     region <- read_tsv(regions,col_names=FALSE)
+    if(ncol(region)<3){region <- data.frame(region[,1],1,region[,2],stringsAsFactors=FALSE)}
   } else if(grepl("-",regions) & grepl(":",regions)){
     region <- gsub(",","",regions)
     region <- gsub(":","-",region)
@@ -29,9 +30,9 @@ bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), leg
     scores <- cmdRun( cmdString, tsv=TRUE, threads=threads)
 
     xlims=c( min(unlist(lapply(scores,"[",2))), max(unlist(lapply(scores,"[",2))))
-    ylims=c( min(unlist(lapply(scores,"[",4))), max(unlist(lapply(scores,"[",4))))
+    if(is.na(ylims)){ylimits=c( min(unlist(lapply(scores,"[",4))), max(unlist(lapply(scores,"[",4))))} else{ylimits=ylims}
 
-    plot(0,0,type='n', xlim=xlims, ylim=ylims, xlab=paste(region[r,1],"coordinate (bp)") , ylab=ylabel )
+    plot(0,0,type='n', xlim=xlims, ylim=ylimits, xlab=paste(region[r,1],"coordinate (bp)") , ylab=ylabel , main=paste0(region[r,1],":",region[r,2],"-",region[r,3]) )
     if(is.numeric(xline)){abline(h=xline)}
     for(i in seq_len(numbgs)){
 
@@ -44,7 +45,11 @@ bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), leg
       if(lspan>0){
         yvals <- loess(yvals~xvals,span=lspan)$y
       }
-      segments(xvals,yvals,xvals2,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
+      if(dots){
+        points(xvals,yvals,col=plotcolors[i], pch=20)
+      } else{
+        segments(xvals,yvals,xvals2,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
+      }
 
       if(length(adjacent)>0){
         adjacent <- adjacent[adjacent!=numvals]
@@ -57,6 +62,18 @@ bgPlot <- function( bgFiles , regions , plotcolors=rainbow(length(bgFiles)), leg
       #segments(xvals,yvals,xvals2, yvals, col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
     }
     legend("topright",legend=legendnames, lwd=linewidths, cex=0.6, col=plotcolors, lty=linetypes)
+
+
+    if(length(unique(unlist(lapply(scores,nrow))))==1){
+      sss=as.data.frame(lapply(scores,"[",4))
+      colnames(sss)<-legendnames
+      sss[sss>ylims[2]]<-ylims[2]
+      sss[sss<ylims[1]]<-ylims[1]
+      brks=seq(ylims[1],ylims[2],(ylims[2]-ylims[1])/100)
+      numbreaks=length(brks)
+      heatmap.2(t(sss),breaks=brks,col=colorRampPalette(c("red","black","green"))(numbreaks-1),Rowv=F,Colv=F,trace='none',margins=c(15,15),main=paste0(region[r,1],":",region[r,2],"-",region[r,3]))
+
+    }
   }
 
 }

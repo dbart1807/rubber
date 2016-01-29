@@ -13,7 +13,7 @@ function( bgfiles, normalizeto = 1:length(bgfiles) , threads=getOption("threads"
 	bgrefs <- bgSort(bgfiles[normalizeto], threads=threads)
 
 	if(length(normalizeto)>1){
-		bgref <- bgOps(bgrefs, operation="mean", outnames = paste0("mean_",basename(bgref[1])))
+		bgref <- bgOps(bgrefs, operation="mean", outnames = paste0("mean_",basename(bgrefs[1])))
 	} else{
 		bgref <- bgrefs
 	}

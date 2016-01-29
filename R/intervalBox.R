@@ -1,5 +1,5 @@
 intervalBox <-
-  function( x , y , breaks=seq(0,1,0.1) , quantiles=TRUE , xlabel=NULL , ylabel=NULL , cores="max" , xaxislabel=TRUE , yaxislabel=TRUE  ){
+  function( x , y , breaks=seq(0,1,0.1) , ylims=NULL , quantiles=TRUE , xlabel=NULL , ylabel=NULL , cores="max" , xaxislabel=TRUE , yaxislabel=TRUE  ){
 
 	#check for infinite values? or just discard?
 	xinfind <- which(is.infinite(x))
@@ -25,7 +25,7 @@ intervalBox <-
 		x[which(xbinind==i)]
 	})
 
-  boxplot(h,outline=F)
+  boxplot(h,outline=F,if(!is.null(ylims) ) {ylim=ylims})
 
 	binmat<-data.matrix(as.data.frame(mclapply(h,"[[",2)))
 	#binmat<-binmat[nrow(binmat):1,]

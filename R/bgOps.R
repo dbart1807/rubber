@@ -57,7 +57,9 @@ function( bglist1 , operation , bglist2=NULL , outnames = NULL , pattern=NULL , 
 
 	}
 
-
+	if( is.null(bglist2) & grepl("\\$",operation) ){
+		cmdString <- paste0("awk '{print $1,$2,$3,",operation,"}' OFS='\t' ",bglist1," > ",outnames)
+	}
 
 
 	if( is.null(bglist2) & operation %in% c("log2","log10","antilog2","antilog10","inverse","mediancenter","meancenter")){
@@ -96,7 +98,7 @@ function( bglist1 , operation , bglist2=NULL , outnames = NULL , pattern=NULL , 
 	if( is.null(bglist2)==FALSE & length(bglist2) == numbgs ){
 
 		# check operation
-		if(operation %ni% c("log2ratio","ratio","difference","mean","absdiff")) { stop("operations that can be performed on pairs of files include log2ratio, ratio, difference, and mean")}
+		if(operation %ni% c("log2ratio","ratio","difference","mean","absdiff","sum")) { stop("operations that can be performed on pairs of files include log2ratio, ratio, difference, and mean")}
 
 		# define output file names
 		if(is.null(outnames)){outnames <- paste0 (bgnames1 , "_",operation,"_",bgnames2,".bg")}
@@ -118,6 +120,10 @@ function( bglist1 , operation , bglist2=NULL , outnames = NULL , pattern=NULL , 
 		if(operation=="mean"){
 			cmdString <- paste("paste",bglist1,bglist2,"| awk '{print $1,$2,$3,($4+$8)/2}' OFS='\t' >",outnames)
 		}
+		if(operation=="sum"){
+			cmdString <- paste("paste",bglist1,bglist2,"| awk '{print $1,$2,$3,$4+$8}' OFS='\t' >",outnames)
+		}
+
 
 	}
 
