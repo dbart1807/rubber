@@ -14,7 +14,7 @@ function( bgs, referenceIqr=NULL , mediancenter=FALSE, threads=getOption("thread
   medians <- quantiles[3,]
   # use mean iqr as target IQR if referenceIqr not defined
   if(!is.null(referenceIqr) & is.numeric(referenceIqr) ){ iqr <- referenceIqr } else{ iqr <- mean(iqrs)}
-  
+
   # calculate normalization factor
   scalars <- iqr/iqrs
 
@@ -25,7 +25,7 @@ function( bgs, referenceIqr=NULL , mediancenter=FALSE, threads=getOption("thread
         if(mediancenter){";"},
         "$4=$4*",scalars,
         "; print $0}' OFS='\\t'",
-        bgs[x],">",outnames
+        bgs,">",outnames
     )
 
   res <- cmdRun(cmdString, threads=threads)
