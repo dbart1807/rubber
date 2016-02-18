@@ -1,4 +1,6 @@
-bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), legendnames=basename(removeext(bgFiles)) ,  dots=F , ylims=NA , threads=getOption("threads",1L) , linetypes=1, linewidths=3, lspan=0, flank=0 , ylabel="score" , xline=0 , maxplots=100, connectWithin=0 ) {
+bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), legendnames=basename(removeext(bgFiles)) ,  lines=T , steps=F , dots=F , ylims=NA , threads=getOption("threads",1L) , linetypes=1, linewidths=3, lspan=0, flank=0 , ylabel="score" , xline=0 , maxplots=100, connectWithin=0 ) {
+
+  options(scipen=9999)
 
   numbgs=length(bgFiles)
   if(numbgs>length(linetypes)){linetypes=rep(linetypes,numbgs)}
@@ -41,39 +43,46 @@ bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), 
       xvals2 <- scores[[i]][,3]
       yvals <-  scores[[i]][,4]
       adjacent <- which( xvals[2:length(xvals)] - xvals2[1:(length(xvals2)-1)] <= connectWithin )
+			xvals3 <- (xvals+xvals2)/2
 
       if(lspan>0){
         yvals <- loess(yvals~xvals,span=lspan)$y
       }
+
       if(dots){
-        points(xvals,yvals,col=plotcolors[i], pch=20)
-      } else{
-        segments(xvals,yvals,xvals2,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
+        points(xvals3,yvals,col=plotcolors[i], pch=20)
+      }
+			if(steps){
+				segments(xvals,yvals,xvals2,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
+			}
+      if (lines){
+        #segments(xvals,yvals,xvals2,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
+        lines(xvals3,yvals,col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
       }
 
-      if(length(adjacent)>0){
-        adjacent <- adjacent[adjacent!=numvals]
-        segments(xvals2,yvals[adjacent],xvals2,yvals[adjacent+1],col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
-      }
+      # if(length(adjacent)>0 & linewidths[i]>0){
+        #adjacent <- adjacent[adjacent!=numvals]
+        #segments(xvals2,yvals[adjacent],xvals2,yvals[adjacent+1],col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
+      # }
 
 
 
       if(flank !=0){abline(v=region[r,2:3])}
       #segments(xvals,yvals,xvals2, yvals, col=plotcolors[i], lty=linetypes[i], lwd=linewidths[i])
     }
-    legend("topright",legend=legendnames, lwd=linewidths, cex=0.6, col=plotcolors, lty=linetypes)
+    legend("topright",legend=legendnames, lwd=linewidths+1, cex=0.6, col=plotcolors, lty=linetypes)
 
 
-    if(length(unique(unlist(lapply(scores,nrow))))==1){
-      sss=as.data.frame(lapply(scores,"[",4))
-      colnames(sss)<-legendnames
-      sss[sss>ylims[2]]<-ylims[2]
-      sss[sss<ylims[1]]<-ylims[1]
-      brks=seq(ylims[1],ylims[2],(ylims[2]-ylims[1])/100)
-      numbreaks=length(brks)
-      heatmap.2(t(sss),breaks=brks,col=colorRampPalette(c("red","black","green"))(numbreaks-1),Rowv=F,Colv=F,trace='none',margins=c(15,15),main=paste0(region[r,1],":",region[r,2],"-",region[r,3]))
-
-    }
+    # if(length(unique(unlist(lapply(scores,nrow))))==1){
+    #   sss=as.data.frame(lapply(scores,"[",4))
+    #   colnames(sss)<-legendnames
+    #   sss[sss>ylims[2]]<-ylims[2]
+    #   sss[sss<ylims[1]]<-ylims[1]
+    #   brks=seq(ylims[1],ylims[2],(ylims[2]-ylims[1])/100)
+    #   numbreaks=length(brks)
+    #   heatmap.2(t(sss),breaks=brks,col=colorRampPalette(c("red","black","green"))(numbreaks-1),Rowv=F,Colv=F,trace='none',margins=c(15,15),main=paste0(region[r,1],":",region[r,2],"-",region[r,3]))
+    #
+    # }
   }
 
 }
