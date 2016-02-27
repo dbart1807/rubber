@@ -29,12 +29,20 @@ function( bedfile , promoter5 = c(-1000,0) , promoter3 = c(0,1000) , genebody = 
 	gene<-data.frame(V1=bed$V1,V2=bed$V2+genebody[1],V3=bed$V3+genebody[2],stringsAsFactors=F)
 	gene<-gene[which(gene$V3-gene$V2 > 0),]
 
-	write.tsv(utr5,file=paste0(bedname,"_utr5.bed"))
-	write.tsv(utr3,file=paste0(bedname,"_utr3.bed"))
-	write.tsv(prom5,file=paste0(bedname,"_prom5.bed"))
-	write.tsv(prom3,file=paste0(bedname,"_prom3.bed"))
-	write.tsv(gene,file=paste0(bedname,"_genebody.bed"))
-	write.tsv(orf,file=paste0(bedname,"_orf.bed"))
+	utr5name  <- paste0(bedname,"_utr5.bed")
+	utr3name  <- paste0(bedname,"_utr3.bed")
+	prom5name <- paste0(bedname,"_prom5.bed")
+	prom3name <- paste0(bedname,"_prom3.bed")
+	gbname    <- paste0(bedname,"_genebody.bed")
+	orfname   <- paste0(bedname,"_orf.bed")
 
+	write.tsv(utr5,file=utr5name)
+	write.tsv(utr3,file=utr3name)
+	write.tsv(prom5,file=prom5name)
+	write.tsv(prom3,file=prom3name)
+	write.tsv(gene,file=gbname)
+	write.tsv(orf,file=orfname)
+
+	return(c(utr5name,utr3name,prom5name,prom3name,gbname,orfname))
 
 }
