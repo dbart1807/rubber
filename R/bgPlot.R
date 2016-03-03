@@ -24,12 +24,16 @@ bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), 
 
   for(r in seq_len(numplots)){
     #print(region[r,3])
+
+    # fix this to handle no returned scores
     cmdString <- paste0(
       "echo -e '", region[r,1],"\\t",region[r,2]-flank,"\\t",region[r,3]+flank,"' ",
       "| bedtools intersect -u -a ", bgFiles, " -b stdin "
     )
 
     scores <- cmdRun( cmdString, tsv=TRUE, threads=threads)
+
+    if(nrow(scores))
 
     xlims=c( min(unlist(lapply(scores,"[",2))), max(unlist(lapply(scores,"[",2))))
     if(is.na(ylims)){ylimits=c( min(unlist(lapply(scores,"[",4))), max(unlist(lapply(scores,"[",4))))} else{ylimits=ylims}
@@ -46,7 +50,7 @@ bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), 
 			xvals3 <- (xvals+xvals2)/2
 
       if(lspan>0){
-        yvals <- loess(yvals~xvals,span=lspan)$y
+        yvals <- tryCatch({loess(yvals~xvals,span=lspan)$fitted}, error=function(w){yvals} )
       }
 
       if(dots){

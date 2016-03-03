@@ -1,8 +1,8 @@
 counts2matrix <-
-function ( counts , bedfile , samplenames=NULL ){
+function ( counts , bedfile , countCols , nameCol=1 , samplenames=NULL ){
 
-	bed=read_tsv(bedfile,col_names=F)
-	cnt=read_tsv(counts,col_names=T,skip=1)
+	bed=tsvRead(bedfile)
+	cnt=tsvRead(counts,col_names=T,comment="#")
 	bedname <- basename(removeext(bedfile))
 	bedcols<-ncol(bed)
 	bedrows<-nrow(bed)
@@ -14,13 +14,14 @@ function ( counts , bedfile , samplenames=NULL ){
 	# }
 	#
 
-	namematch<-match(bed[,4],cnt[,1])
+	namematch<-match(bed[,4],cnt[,nameCol])
 	cnt <- cnt[namematch,]
 
-	numsamples<-ncol(cnt)-6
-	samplecols<-seq_len(numsamples)+6
+	numsamples<-length(countCols)
+	samplecols<-countCols
 
-	if(is.null(samplenames)){ samplenames<-basename(colnames(cnt)[(seq_len(numsamples))+6]) }
+	if(is.null(samplenames)){ samplenames<-basename(colnames(cnt)[countCols]) }
+
 	outnames <- paste0(samplenames,"_",bedname,".mat0")
 
 	# name features

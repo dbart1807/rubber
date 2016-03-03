@@ -1,5 +1,5 @@
 bgLoess <-
-function( bgfiles, lspan=0.05, threads=getOption("threads",1L), omitY=FALSE ){
+function( bgfiles, lspan=0.05, threads=getOption("threads",1L), omitY=FALSE, omitM=FALSE){
 
 	# assumes sorted bg
 
@@ -11,7 +11,8 @@ function( bgfiles, lspan=0.05, threads=getOption("threads",1L), omitY=FALSE ){
 
 	dump <- mclapply(seq_len(numbgs), function(x){
 		curbg <- read_tsv ( bgfiles[x], col_names=FALSE )
-		if(omitY){curbg=curbg[-which(curbg[,1]=="chrY"),]}
+		if(omitY){curbg=curbg[which(curbg[,1]!="chrY"),]}
+		if(omitM){curbg=curbg[which(curbg[,1]!="chrM"),]}
 
 		#curbg$V4[is.infinite(curbg$V4)]<-NA
 
@@ -19,22 +20,34 @@ function( bgfiles, lspan=0.05, threads=getOption("threads",1L), omitY=FALSE ){
 		numchroms <- length(chroms)
 
 		pointsperchrom <- as.numeric(table(curbg[,1]))
-		pointratios    <-	pointsperchrom/pointsperchrom[1]
+		pointratios    <-	max(pointsperchrom)/pointsperchrom
 		scaledspans    <- lspan*pointratios
 
 		smoothstats <- data.frame( chr=chroms , numPoints=pointsperchrom , scaledSpans=scaledspans)
+
 		if(getOption("verbose")){print(paste("smoothing stats for",bgnames[x]));print(smoothstats)}
 		all=split(curbg,curbg[,1])
 
 		lscores<-mclapply(1:numchroms,function(i){
 			cur <- all[[i]]
+
 			cur[,4] <- tryCatch(
-				{loess(cur[,4]~cur[,2],span=scaledspans[i])$fitted},
-			 	error = function(err){
+				{
+					loess(cur[,4]~cur[,2],span=scaledspans[i])$fitted
+
+				},
+				warning = function(war){
+					print(paste("warning for file",bgnames[x],"chromosome",cur[1,1],":",war))
+					out <- loess(cur[,4]~cur[,2],span=scaledspans[i])$fitted
+					return(out)
+				},
+				error = function(err){
 					print(paste("smoothing failed for file",bgnames[x],"chromosome",cur[1,1],":",err))
 					return(cur[,4])
 				}
 			)
+
+
 			return(cur)
 		},mc.cores=chromthreads, mc.preschedule=FALSE)
 
