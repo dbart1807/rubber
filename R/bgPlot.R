@@ -24,7 +24,7 @@ bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), 
 
   for(r in seq_len(numplots)){
     #print(region[r,3])
-
+    print(paste("region",r,region[r,1],region[r,2]-flank,region[r,3]+flank))
     # fix this to handle no returned scores
     cmdString <- paste0(
       "echo -e '", region[r,1],"\\t",region[r,2]-flank,"\\t",region[r,3]+flank,"' ",
@@ -33,7 +33,7 @@ bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), 
 
     scores <- cmdRun( cmdString, tsv=TRUE, threads=threads)
 
-    if(nrow(scores))
+    #if(nrow(scores))
 
     xlims=c( min(unlist(lapply(scores,"[",2))), max(unlist(lapply(scores,"[",2))))
     if(is.na(ylims)){ylimits=c( min(unlist(lapply(scores,"[",4))), max(unlist(lapply(scores,"[",4))))} else{ylimits=ylims}
