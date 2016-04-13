@@ -30,6 +30,7 @@ bgPlot <- function( bgFiles , regions=NA , plotcolors=rainbow(length(bgFiles)), 
       "printf \"%s\t%s\t%s\" \"", region[r,1],"\" \"",region[r,2]-flank,"\" \"",region[r,3]+flank,"\" ",
       "| bedtools intersect -u -a ", bgFiles, " -b stdin "
     )
+    
 
     scores <- cmdRun( cmdString, tsv=TRUE, threads=threads)
 
