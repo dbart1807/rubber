@@ -5,6 +5,16 @@ Version: 0.1
 Date: 2015-09-27
 Author: Daniel Vera vera@genomics.fsu.edu
 Maintainer: Daniel Vera <vera@genomics.fsu.edu>
-Description: A suite of tools to process, analyze, and visualize bed and bedGraph data in R.
-Depends: gplots, parallel, tools, gtools, readr, conifur, gyro, converge
+Description: A suite of tools to process, analyze, and visualize bed and
+    bedGraph data in R.
+Depends:
+    gplots,
+    parallel,
+    tools,
+    gtools,
+    readr,
+    conifur,
+    gyro,
+    converge
 License: MIT Lisence
+RoxygenNote: 5.0.1
