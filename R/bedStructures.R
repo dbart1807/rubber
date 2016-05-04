@@ -14,7 +14,7 @@ function( bedfile , promoter5 = c(-1000,0) , promoter3 = c(0,1000) , bedname = b
 	utrname   <- paste0(bedname,"_utr.bed")
 	prom5name <- paste0(bedname,"_prom5.bed")
 	prom3name <- paste0(bedname,"_prom3.bed")
-	orfname   <- paste0(bedname,"_orf.bed")
+	cdsname   <- paste0(bedname,"_cds.bed")
 	exonname  <- paste0(bedname,"_exons.bed")
 	intergenicname <- paste0(bedname,"_intergenic.bed")
 	genicname <- paste0(bedname,"_genic_tmp.bed")
@@ -69,31 +69,45 @@ function( bedfile , promoter5 = c(-1000,0) , promoter3 = c(0,1000) , bedname = b
 		data.frame(V1=negbed$V1,V2=negbed$V3-promoter5[2],V3=negbed$V3-promoter5[1],stringsAsFactors=F)
 	)
 	prom5[which(prom5[,2]<0),2]<-0
+	prom5=prom5[which((prom5[,3]-prom5[,2])>0),]
 	tsvWrite(prom5,file=prom5name)
 	bedSort(prom5name)
+	prom5name <- kentBedClip(prom5name,chromsizes)
 
 	prom3<-rbind(
 		data.frame(V1=posbed$V1,V2=posbed$V3+promoter3[1],V3=posbed$V3+promoter3[2],stringsAsFactors=F),
 		data.frame(V1=negbed$V1,V2=negbed$V2-promoter3[2],V3=negbed$V2-promoter3[1],stringsAsFactors=F)
 	)
 	prom3[which(prom3[,2]<0),2]<-0
+	prom3=prom3[which((prom3[,3]-prom3[,2])>0),]
 	tsvWrite(prom3,file=prom3name)
 	bedSort(prom3name)
+	prom3name <- kentBedClip(prom3name,chromsizes)
 
-	intronname <- bedtoolsSubtract(bedfile,exonname,intronname)
-	orfBoundaries <- bedtoolsSubtract(bedfile,utrname)
-	unlink(orfBoundaries)
-	orfname <- bedtoolsSubtract(orfBoundaries,intronname,orfname)
 
-	genicname=bedCat(c(bedfile,prom5name,prom3name),genicname)
+	bedfile2name=paste0(bedfile,"_gene.bed")
+	cmdString <- paste("cut -f 1,2,3",bedfile,">",bedfile2name)
+	res <- cmdRun(cmdString)
+
+	intronname <- bedtoolsSubtract(bedfile2name,exonname,intronname)
+	bedSort(intronname)
+	cdsBoundaries <- bedtoolsSubtract(bedfile2name,utrname)
+	bedSort(cdsBoundaries)
+	cdsname <- bedtoolsSubtract(cdsBoundaries,intronname,cdsname)
+	bedSort(cdsname)
+
+	genicname=bedCat(c(bedfile2name,prom5name,prom3name),genicname)
+	genicname=bedtoolsMerge(genicname)
 	cmdString <- paste("cut -f 1,2,3",genicname,">",genicname2)
-	unlink(genicname)
 	res <- cmdRun(cmdString)
 	intergenicfile <- bedtoolsComplement(genicname2,chromsizes,intergenicname)
+	unlink(cdsBoundaries)
+	unlink(genicname)
 	unlink(genicname2)
 
 
 
-	return(c(intergenicname,intronname,utr5name,utr3name,prom5name,prom3name,orfname))
+	beds=c(intergenicname,intronname,utr5name,utr3name,prom5name,prom3name,cdsname)
+	beds=kentBedClip(beds,chromsizes)
 
 }
